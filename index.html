@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StrataDrift — Geology Study Hub</title>
+<meta name="description" content="StrataDrift — Büşra'nın jeoloji, jeomorfoloji, tektonik, buzul jeolojisi ve Kuvaterner jeokronolojisi çalışma alanı.">
+<style>
+:root{
+  --bg:#08100f; --panel:#0f1b18; --panel2:#13231f; --line:#28423a;
+  --text:#e9f0ec; --muted:#9fb2aa; --accent:#9cc8b3; --accent2:#d8b47a;
+  --tag:#193129; --shadow:0 18px 50px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+  radial-gradient(circle at 15% 0%,rgba(156,200,179,.09),transparent 30%),
+  radial-gradient(circle at 90% 10%,rgba(216,180,122,.08),transparent 28%),
+  var(--bg);color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;
+}
+a{color:inherit;text-decoration:none}
+.container{width:min(1180px,calc(100% - 36px));margin:auto}
+header{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(16px);
+  background:rgba(8,16,15,.84);border-bottom:1px solid rgba(156,200,179,.12)
+}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-weight:800;letter-spacing:.06em;font-size:18px}
+.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:18px;color:var(--muted);font-size:14px}
+.navlinks a:hover{color:var(--text)}
+.hero{padding:76px 0 48px}
+.eyebrow{
+  color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:14px
+}
+h1{font-size:clamp(40px,7vw,76px);line-height:.98;margin:0 0 22px;letter-spacing:-.045em}
+.hero p{max-width:760px;color:var(--muted);font-size:18px;margin:0}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:11px 16px;border:1px solid var(--line);border-radius:12px;
+  background:var(--panel);font-weight:700;font-size:14px
+}
+.btn.primary{background:var(--accent);color:#07100d;border-color:var(--accent)}
+.btn:hover{transform:translateY(-1px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 54px}
+.stat{padding:18px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,var(--panel),#0b1513)}
+.stat strong{display:block;font-size:27px}.stat span{color:var(--muted);font-size:12px}
+.toolbar{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin:0 0 28px;padding:14px;border:1px solid var(--line);
+  background:rgba(15,27,24,.78);border-radius:16px
+}
+.search{flex:1;min-width:240px}
+input,select{
+  width:100%;background:#0a1412;color:var(--text);border:1px solid var(--line);
+  border-radius:10px;padding:11px 12px;outline:none
+}
+input:focus,select:focus{border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filter{
+  border:1px solid var(--line);background:transparent;color:var(--muted);
+  padding:9px 12px;border-radius:999px;cursor:pointer;font-weight:700
+}
+.filter.active,.filter:hover{background:var(--tag);color:var(--text);border-color:#42695b}
+.section{padding:30px 0 58px}
+.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}
+.section h2{font-size:28px;margin:0;letter-spacing:-.025em}
+.section-intro{color:var(--muted);max-width:760px;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:18px;padding:20px;
+  box-shadow:var(--shadow);transition:.18s ease;display:flex;flex-direction:column;min-height:245px
+}
+.card:hover{transform:translateY(-3px);border-color:#42695b}
+.card-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.num{font-size:12px;color:var(--muted);font-weight:800}
+.icon{
+  width:40px;height:40px;border:1px solid #315046;border-radius:12px;
+  display:grid;place-items:center;background:#10231e;font-size:19px
+}
+.card h3{margin:17px 0 8px;font-size:20px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:15px}
+.tag{font-size:11px;color:#bdd2c8;background:var(--tag);border:1px solid #25463b;border-radius:999px;padding:4px 8px}
+.topics{margin:16px 0 0;padding:0;list-style:none;border-top:1px solid rgba(156,200,179,.1);padding-top:13px}
+.topics li{font-size:13px;color:#c9d5d0;padding:3px 0}
+.topics li::before{content:"→";color:var(--accent2);margin-right:7px}
+.card-foot{margin-top:auto;padding-top:17px;display:flex;gap:8px;flex-wrap:wrap}
+.smallbtn{font-size:12px;font-weight:800;color:var(--accent);border:1px solid #315046;border-radius:9px;padding:7px 9px}
+.smallbtn:hover{background:var(--tag)}
+.progress-wrap{margin-top:14px}
+.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px}
+.progress{height:5px;background:#09110f;border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent)}
+.notes{
+  border:1px dashed #416157;border-radius:16px;padding:22px;
+  background:rgba(15,27,24,.55);color:var(--muted)
+}
+.notes strong{color:var(--text)}
+footer{border-top:1px solid rgba(156,200,179,.12);padding:32px 0 48px;color:var(--muted);font-size:13px}
+.empty{display:none;padding:35px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.container{width:min(100% - 24px,1180px)}.navlinks{display:none}.hero{padding-top:48px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.hero p{font-size:16px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="./index.html">STRATA<span>DRIFT</span></a>
+    <nav class="navlinks">
+      <a href="#collections">Notes</a>
+      <a href="./pages/papers.html">Paper Pool</a>
+      <a href="./pages/maps.html">Maps</a>
+      <a href="./pages/notes.html">Study Notes</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Personal geology study hub</div>
+    <h1>Earth, surface,<br>tectonics & time.</h1>
+    <p>
+      StrataDrift'teki çalışma alanı. Yüklenen ders notları, jeoloji temelleri,
+      yüzey süreçleri, aktif tektonik, paleosismoloji, buzul jeolojisi ve
+      Kuvaterner jeokronolojisi tek bir ana dizinde toplandı.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#collections">Tüm notlara git</a>
+      <a class="btn" href="./pages/notes.html">Notları aç</a>
+      <a class="btn" href="./pages/papers.html">Makale Havuzu</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><strong>7</strong><span>ana çalışma alanı</span></div>
+      <div class="stat"><strong>50+</strong><span>konu başlığı</span></div>
+      <div class="stat"><strong>10</strong><span>ölçek / yöntem / süreç teması</span></div>
+      <div class="stat"><strong>∞</strong><span>kendi notların için alan</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="collections" class="section">
+<div class="container">
+  <div class="section-head">
+    <div>
+      <h2>All Notes / Tüm Notlar</h2>
+      <p class="section-intro">Kaynaklarda geçen konu başlıkları korunarak çalışma alanlarına ayrıldı. Arama kutusu tüm başlıklarda çalışır.</p>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search"><input id="search" type="search" placeholder="Konu ara: OSL, moraines, fault scarp, weathering..."></div>
+    <div style="width:150px"><select id="status"><option value="all">Tüm durumlar</option><option value="todo">Başlanmadı</option><option value="reading">Çalışıyorum</option><option value="done">Tamamlandı</option></select></div>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="filter active" data-filter="all">Tümü</button>
+    <button class="filter" data-filter="foundations">Genel Jeoloji</button>
+    <button class="filter" data-filter="surface">Yüzey Süreçleri</button>
+    <button class="filter" data-filter="tectonics">Aktif Tektonik</button>
+    <button class="filter" data-filter="paleo">Paleosismoloji</button>
+    <button class="filter" data-filter="glacial">Buzul Jeolojisi</button>
+    <button class="filter" data-filter="quaternary">Kuvaterner Jeokronolojisi</button>
+    <button class="filter" data-filter="research">Araştırma / Güney Shetland</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <article class="card" data-cat="foundations" data-search="genel jeoloji earth structure plate tectonics minerals mohs cleavage silicates mineral groups igneous rocks melting geology">
+      <div class="card-top"><span class="num">01 · FOUNDATIONS</span><div class="icon">◈</div></div>
+      <h3>Genel Jeoloji</h3>
+      <p>Temel kavramlar, Dünya'nın yapısı, mineraller ve magmatik kayaçlara giriş.</p>
+      <div class="tags"><span class="tag">Earth Structure</span><span class="tag">Mineralogy</span><span class="tag">Igneous</span></div>
+      <ul class="topics">
+        <li>Dünya'nın iç yapısı: kimyasal ve fiziksel katmanlar</li>
+        <li>Levha tektoniği ve levha sınırları</li>
+        <li>Mineral özellikleri ve Mohs sertlik ölçeği</li>
+        <li>Yarılma / cleavage ve atomik bağ ilişkisi</li>
+        <li>Silikat yapıları ve yaygın mineral grupları</li>
+        <li>Magmatik kayaçların bileşimi, dokusu ve sınıflandırılması</li>
+        <li>Geothermal gradient, peridotit erimesi ve magma oluşumu</li>
+      </ul>
+      <div class="card-foot"><a class="smallbtn" href="./pages/notes.html#general-geology">Notlara git →</a><button class="smallbtn progress-btn" data-key="foundations">Durumu değiştir</button></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Çalışma durumu</span><span class="status-text"></span></div><div class="progress"><i></i></div></div>
+    </article>
+
+    <article class="card" data-cat="surface" data-search="earth surface processes geomorphology weathering erosion fluvial coastal drainage basin rivers waves tides longshore drift">
+      <div class="card-top"><span class="num">02 · SURFACE PROCESSES</span><div class="icon">⌁</div></div>
+      <h3>Earth Surface Processes</h3>
+      <p>Yeryüzünü şekillendiren süreçler ve oluşturdukları yer şekilleri.</p>
+      <div class="tags"><span class="tag">Geomorphology</span><span class="tag">Weathering</span><span class="tag">Rivers</span><span class="tag">Coasts</span></div>
+      <ul class="topics">
+        <li>Geomorphology: süreçler, landforms ve landscape history</li>
+        <li>Weathering: mekanik ve kimyasal ayrışma</li>
+        <li>CO₂–karbonik asit ve ayrışma / karbon döngüsü</li>
+        <li>Toprak profili, oluşum faktörleri ve taşınmış topraklar</li>
+        <li>Fluvial geomorphology: basin, divide, tributary, base level</li>
+        <li>Akarsu yükleri, taşınma ve aşındırma mekanizmaları</li>
+        <li>Vadi, şelale, teras, taşkın ovası, menderes, delta</li>
+        <li>Kıyı süreçleri: dalga, refraksiyon, akıntı, gelgit ve drift</li>
+        <li>Kıyı aşınım / birikim şekilleri ve kıyı tipleri</li>
+      </ul>
+      <div class="card-foot"><a class="smallbtn" href="./pages/notes.html#surface-processes">Notlara git →</a><button class="smallbtn progress-btn" data-key="surface">Durumu değiştir</button></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Çalışma durumu</span><span class="status-text"></span></div><div class="progress"><i></i></div></div>
+    </article>
+
+    <article class="card" data-cat="tectonics" data-search="active tectonics tectonic geomorphology earthquakes dating geomorphic indices rivers coastlines folds faults uplift subsidence">
+      <div class="card-top"><span class="num">03 · ACTIVE TECTONICS</span><div class="icon">⇄</div></div>
+      <h3>Aktif Tektonik & Tektonik Jeomorfoloji</h3>
+      <p>Tektonik hareketlerin topoğrafya, akarsu sistemleri ve kıyılar üzerindeki izleri.</p>
+      <div class="tags"><span class="tag">Faults</span><span class="tag">Folds</span><span class="tag">Morphometry</span></div>
+      <ul class="topics">
+        <li>Tektonik jeomorfolojinin kapsamı ve süreçler</li>
+        <li>Yer şekillerinin 1.–10. ölçek sınıflaması</li>
+        <li>Yanal hareket: offset stream, sag pond, shutter ridge, pressure ridge</li>
+        <li>Düşey hareket: fault scarp, horst–graben, uplift/subsidence</li>
+        <li>Antiklinal, senklinal, devrik ve dalımlı kıvrımlar</li>
+        <li>Deprem, fay ilişkisi, deprem döngüsü ve sismik dalgalar</li>
+        <li>OSL ve diğer tarihlendirme yaklaşımları</li>
+        <li>Hypsometric Integral, AF, SL, Smf ve Vf</li>
+        <li>Alluvial vs. bedrock rivers ve tektonik nehir tepkileri</li>
+        <li>Aktif tektonik ve kıyılar; coastal landform dating</li>
+      </ul>
+      <div class="card-foot"><a class="smallbtn" href="./pages/notes.html#active-tectonics">Notlara git →</a><button class="smallbtn progress-btn" data-key="tectonics">Durumu değiştir</button></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Çalışma durumu</span><span class="status-text"></span></div><div class="progress"><i></i></div></div>
+    </article>
+
+    <article class="card" data-cat="paleo" data-search="paleoseismology trenches earthquake indicators colluvial wedge fault branches unconformity sand dikes tsunami deposits archaeoseismology dendrochronology">
+      <div class="card-top"><span class="num">04 · PALEOSEISMOLOGY</span><div class="icon">▱</div></div>
+      <h3>Paleosismoloji</h3>
+      <p>Geçmiş depremlerin jeomorfolojik ve stratigrafik izlerinin okunması.</p>
+      <div class="tags"><span class="tag">Trenching</span><span class="tag">Earthquakes</span><span class="tag">Dating</span></div>
+      <ul class="topics">
+        <li>Paleosismolojinin amacı ve tarihsel gelişimi</li>
+        <li>Trenching ve çok disiplinli yaklaşım</li>
+        <li>Primary / secondary paleoseismic structures</li>
+        <li>Fault scarp, fissure, mole track, pressure ridge</li>
+        <li>Uplifted/submerged shorelines ve tectonic terraces</li>
+        <li>Faulted/folded strata ve colluvial wedges</li>
+        <li>Sand dikes, sand blows, soft-sediment deformation</li>
+        <li>Tsunami deposits, turbidites ve ikincil deformasyon</li>
+        <li>Trench-wall göstergeleri ve olay dizilerinin yorumlanması</li>
+      </ul>
+      <div class="card-foot"><a class="smallbtn" href="./pages/notes.html#paleoseismology">Notlara git →</a><button class="smallbtn progress-btn" data-key="paleo">Durumu değiştir</button></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Çalışma durumu</span><span class="status-text"></span></div><div class="progress"><i></i></div></div>
+    </article>
+
+    <article class="card" data-cat="glacial" data-search="glacial geology glaciers ice sheets mass balance ice flow hydrology erosion landforms till sedimentation moraines glaciofluvial palaeoglaciology">
+      <div class="card-top"><span class="num">05 · GLACIAL GEOLOGY</span><div class="icon">❄</div></div>
+      <h3>Buzul Jeolojisi</h3>
+      <p>Buzullar, buz örtüleri, kütle dengesi, akış, aşınım, sedimantasyon ve paleobuzul ortamları.</p>
+      <div class="tags"><span class="tag">Ice Sheets</span><span class="tag">Glacial Landforms</span><span class="tag">Till</span></div>
+      <ul class="topics">
+        <li>Buzul ve ice-sheet türleri; dağılım ve iklim ilişkisi</li>
+        <li>Snow → firn → ice dönüşümü</li>
+        <li>Mass balance: M = Ac − Ab</li>
+        <li>Accumulation / ablation zones ve ELA</li>
+        <li>Ice flow ve glacier hydrology</li>
+        <li>Glacial erosion: abrasion, plucking/quarrying, meltwater</li>
+        <li>Striation, roche moutonnée, crag-and-tail ve diğer erozyonal şekiller</li>
+        <li>Till, diamicton, glaciofluvial sedimentation</li>
+        <li>Moraines, outwash, ice-marginal ve subglacial landforms</li>
+        <li>Palaeoglaciology ve eski buzulların yeniden kurulması</li>
+      </ul>
+      <div class="card-foot"><a class="smallbtn" href="./pages/notes.html#glacial-geology">Notlara git →</a><button class="smallbtn progress-btn" data-key="glacial">Durumu değiştir</button></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Çalışma durumu</span><span class="status-text"></span></div><div class="progress"><i></i></div></div>
+    </article>
+
+    <article class="card" data-cat="quaternary" data-search="quaternary geochronology radiocarbon carbon 14 argon isotope ar ar u series cosmogenic luminescence osl fission track dendrochronology paleomagnetism oxygen isotope stratigraphy tephrochronology">
+      <div class="card-top"><span class="num">06 · QUATERNARY GEOCHRONOLOGY</span><div class="icon">⌛</div></div>
+      <h3>Kuvaterner Jeokronolojisi</h3>
+      <p>Kuvaterner yaşlandırma yöntemleri, kronoloji, belirsizlik ve çoklu yöntem yaklaşımı.</p>
+      <div class="tags"><span class="tag">Dating</span><span class="tag">Radiometric</span><span class="tag">Chronology</span></div>
+      <ul class="topics">
+        <li>Quaternary ve kronoloji kavramları</li>
+        <li>Precision vs. accuracy; uncertainty</li>
+        <li>Relative, numerical, calibrated ve correlated ages</li>
+        <li>Radiocarbon (^14C), AMS ve calibration</li>
+        <li>Argon-isotope: K–Ar ve ^40Ar/^39Ar</li>
+        <li>Uranium-series dating</li>
+        <li>Cosmogenic nuclides: ^3He, ^10Be, ^14C, ^21Ne, ^26Al, ^36Cl</li>
+        <li>Luminescence / OSL ve TT-OSL</li>
+        <li>Fission-track dating</li>
+        <li>Dendrochronology ve paleomagnetism</li>
+        <li>Oxygen-isotope chronostratigraphy ve MIS</li>
+        <li>Tephrochronology, paleosol ve diğer korelasyon yöntemleri</li>
+        <li>^210Pb ve ^137Cs gibi kısa zaman ölçekli yöntemler</li>
+      </ul>
+      <div class="card-foot"><a class="smallbtn" href="./pages/notes.html#quaternary-geochronology">Notlara git →</a><button class="smallbtn progress-btn" data-key="quaternary">Durumu değiştir</button></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Çalışma durumu</span><span class="status-text"></span></div><div class="progress"><i></i></div></div>
+    </article>
+
+    <article class="card" data-cat="research" data-search="south shetland islands antarctica glacial isostatic uplift coastal geomorphology marine terraces raised beaches paleo shorelines west antarctica">
+      <div class="card-top"><span class="num">07 · RESEARCH</span><div class="icon">⌖</div></div>
+      <h3>Güney Shetland & Araştırma Alanı</h3>
+      <p>Antarktika, kıyı jeomorfolojisi, izostatik yükselme ve araştırma altyapısı.</p>
+      <div class="tags"><span class="tag">Antarctica</span><span class="tag">Coastal</span><span class="tag">Isostasy</span></div>
+      <ul class="topics">
+        <li>South Shetland Islands ve Bransfield Strait</li>
+        <li>Glacial Isostatic Uplift</li>
+        <li>Raised beaches, marine terraces ve paleo-shorelines</li>
+        <li>Clastic coasts ve kıyı jeomorfolojisi envanteri</li>
+        <li>West Antarctic tectonic / back-arc context</li>
+        <li>Quaternary palaeoenvironment ve Holocene change</li>
+        <li>Thesis / EGU / article çalışma alanı</li>
+        <li>Paper Pool ve araştırma literatürü</li>
+      </ul>
+      <div class="card-foot"><a class="smallbtn" href="./pages/papers.html">Paper Pool →</a><a class="smallbtn" href="./pages/maps.html">Maps →</a><button class="smallbtn progress-btn" data-key="research">Durumu değiştir</button></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Çalışma durumu</span><span class="status-text"></span></div><div class="progress"><i></i></div></div>
+    </article>
+
+  </div>
+  <div class="empty" id="empty">Bu aramaya uyan bir konu bulunamadı.</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+  <div class="section-head">
+    <div>
+      <h2>Study System</h2>
+      <p class="section-intro">Ana sayfa konu haritası; ayrıntılı içerik sayfalarında kaynak notları, görseller ve kişisel çalışma alanları tutulacak.</p>
+    </div>
+  </div>
+  <div class="notes">
+    <strong>Çalışma prensibi:</strong> Yüklenen ders ve kaynak materyallerinin terminolojisi, konu sırası ve ayrıntı düzeyi korunacak.
+    Eksik kalan noktalar dış kaynakla tamamlanırsa kaynak türü ayrıca belirtilir. Her ana konuda <strong>My Notes / Kendi Notlarım</strong> alanı bulunacak.
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <strong>StrataDrift</strong> · Personal Geology Study Hub<br>
+    Geology · Geomorphology · Active Tectonics · Glacial Geology · Quaternary Geochronology
+  </div>
+</footer>
+
+<script>
+const STORAGE='stratadrift-index-status-v1';
+const state=JSON.parse(localStorage.getItem(STORAGE)||'{}');
+const labels={todo:['Başlanmadı',0],reading:['Çalışıyorum',50],done:['Tamamlandı',100]};
+function renderStatus(){
+  document.querySelectorAll('.progress-btn').forEach(btn=>{
+    const card=btn.closest('.card'), key=btn.dataset.key;
+    const val=state[key]||'todo';
+    const [label,pct]=labels[val];
+    card.querySelector('.status-text').textContent=label;
+    card.querySelector('.progress i').style.width=pct+'%';
+    btn.textContent=val==='todo'?'Başlat':val==='reading'?'Devam ediyor':'Tamamlandı';
+  });
+}
+document.querySelectorAll('.progress-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const key=btn.dataset.key, cur=state[key]||'todo';
+    state[key]=cur==='todo'?'reading':cur==='reading'?'done':'todo';
+    localStorage.setItem(STORAGE,JSON.stringify(state)); renderStatus();
+  });
+});
+const search=document.getElementById('search'), status=document.getElementById('status');
+let active='all';
+document.querySelectorAll('.filter').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); active=b.dataset.filter; apply();
+  });
+});
+search.addEventListener('input',apply); status.addEventListener('change',apply);
+function apply(){
+  const q=search.value.trim().toLowerCase(), st=status.value;
+  let visible=0;
+  document.querySelectorAll('.card').forEach(card=>{
+    const cat=card.dataset.cat, txt=card.dataset.search;
+    const matchCat=active==='all'||cat===active;
+    const matchQ=!q||txt.includes(q);
+    const key=card.querySelector('.progress-btn').dataset.key;
+    const matchSt=st==='all'||(state[key]||'todo')===st;
+    const show=matchCat&&matchQ&&matchSt;
+    card.style.display=show?'flex':'none'; if(show)visible++;
+  });
+  document.getElementById('empty').style.display=visible?'none':'block';
+}
+renderStatus(); apply();
+</script>
+</body>
+</html>
